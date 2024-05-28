@@ -1,4 +1,2 @@
-.DS_Store
-samples
-/testing/testingTmp*
-latte
+/.idea
+/testing/result/

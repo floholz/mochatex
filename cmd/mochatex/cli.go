@@ -1,17 +1,17 @@
-package main
+package mochatex
 
 import (
 	"context"
 	"encoding/json"
 	"flag"
-	"github.com/raphaelreyna/latte/internal/job"
+	"github.com/floholz/mochatex/internal/job"
 	"log"
 	"os"
 	"path/filepath"
 	"text/template"
 )
 
-func cli(errLog, infoLog *log.Logger) {
+func Cli(errLog, infoLog *log.Logger) {
 	t := flag.String("t", "", "path to template/tex file")
 	d := flag.String("d", "", "path to details json file")
 	flag.Parse()
@@ -43,6 +43,8 @@ func cli(errLog, infoLog *log.Logger) {
 			p = ""
 		}
 	}
+
+	p, _ = filepath.Abs(p)
 
 	if filepath.Ext(*t) != ".tex" {
 		errLog.Fatalf("%s must be a valid .tex file", *t)

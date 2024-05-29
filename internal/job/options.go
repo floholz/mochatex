@@ -60,8 +60,8 @@ type Delimiters struct {
 }
 
 var DefaultDelimiters Delimiters = Delimiters{
-	Left:  "#!",
-	Right: "!#",
+	Left:  "@!",
+	Right: "!@",
 }
 
 var BadDefaultDelimiters Delimiters = Delimiters{

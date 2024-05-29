@@ -68,7 +68,10 @@ func Cli(errLog, infoLog *log.Logger) {
 			errLog.Fatalf("error while obtaining working directory: %v", err)
 		}
 	}
-	tmpl, err := template.New(filepath.Base(*t)).Delims("#!", "!#").ParseFiles(*t)
+	tmpl, err := template.
+		New(filepath.Base(*t)).
+		Delims(job.DefaultDelimiters.Left, job.DefaultDelimiters.Right).
+		ParseFiles(*t)
 	if err != nil {
 		errLog.Fatalf("error while parsing template %s: %v", *t, err)
 	}

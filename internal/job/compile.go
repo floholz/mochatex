@@ -2,10 +2,10 @@ package job
 
 import (
 	"context"
-	"io/ioutil"
 	"os"
 	"os/exec"
 	"path/filepath"
+	"strings"
 )
 
 // Compile creates a tex file by filling in the template with the details and then compiles
@@ -28,19 +28,20 @@ func (j *Job) Compile(ctx context.Context) (string, error) {
 	}
 
 	// Create the jobname from the options
-	jn := filepath.Base(j.Root)
+	jn := j.Template.Name()
+	jn = strings.TrimSuffix(jn, filepath.Ext(jn))
 	if opts.N < 1 {
 		opts.N = 1
 	}
 
 	// Create the tex file
-	texFile, err := ioutil.TempFile(j.Root, "*_filled-in.tex")
+	texFile, err := os.CreateTemp(j.Root, "*_filled-in.tex")
 	if err != nil {
 		return "", err
 	}
 	defer func() {
 		texFile.Close()
-		//os.Remove(texFile.Name())
+		os.Remove(texFile.Name())
 	}()
 
 	tmpl := j.Template.Option("missingkey=" + j.Opts.OnMissingKey.Val())
@@ -56,7 +57,7 @@ func (j *Job) Compile(ctx context.Context) (string, error) {
 			return "", err
 		}
 
-		args := []string{"-halt-on-error", "-jobname=" + jn}
+		args := []string{"-halt-on-error", "-jobname=" + jn, "-aux-directory=" + j.Opts.AppPath}
 		if opts.CC == CC_Latexmk {
 			args = append(args, "-pdf")
 		}

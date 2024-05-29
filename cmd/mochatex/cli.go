@@ -29,12 +29,11 @@ func Cli(errLog, infoLog *log.Logger) {
 	case *d:
 		fallthrough
 	case os.Args[0]:
-		fallthrough
-	case "server":
 		p = ""
 	}
 
 	if p != "" {
+		p, _ = filepath.Abs(p)
 		statInfo, err := os.Stat(p)
 		if err != nil {
 			errLog.Fatalf("error while reading info for %s: %v", p, err)
@@ -43,8 +42,6 @@ func Cli(errLog, infoLog *log.Logger) {
 			p = ""
 		}
 	}
-
-	p, _ = filepath.Abs(p)
 
 	if filepath.Ext(*t) != ".tex" {
 		errLog.Fatalf("%s must be a valid .tex file", *t)

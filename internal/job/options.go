@@ -1,6 +1,11 @@
 package job
 
-import "os/exec"
+import (
+	"log"
+	"os"
+	"os/exec"
+	"path/filepath"
+)
 
 // Compiler represents the various compilers that are available
 type Compiler string
@@ -74,6 +79,19 @@ var EmptyDelimiters Delimiters = Delimiters{
 	Right: "",
 }
 
+func GetAppDir() string {
+	homeDir, err := os.UserHomeDir()
+	if err != nil {
+		log.Fatalf("error while obtaining home directory: %v", err)
+	}
+	appPath := filepath.Join(homeDir, ".mochatex")
+	err = os.MkdirAll(appPath, os.ModePerm)
+	if err != nil {
+		log.Fatalf("error while setting up app directory: %v", err)
+	}
+	return appPath
+}
+
 // Options holds the user settable options for a compilation job
 type Options struct {
 	// CC is the LaTeX compiler to use
@@ -84,6 +102,8 @@ type Options struct {
 	OnMissingKey MissingKeyOpt
 	// Delims holds the left and right delimiters to use for the template
 	Delims Delimiters
+	// AppPath represents the directory for log and aux files
+	AppPath string
 }
 
 var DefaultOptions Options = Options{
@@ -91,4 +111,5 @@ var DefaultOptions Options = Options{
 	N:            1,
 	OnMissingKey: MK_Error,
 	Delims:       DefaultDelimiters,
+	AppPath:      GetAppDir(),
 }

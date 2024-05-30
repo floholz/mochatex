@@ -22,9 +22,10 @@ func main() {
 		cmd = "pdftex"
 	}
 
-	if len(os.Args) < 1 {
-		errLog.Fatal("no arguments provided")
+	if len(os.Args) > 1 {
+		mochatex.Cli(errLog, infoLog)
+		os.Exit(0)
 	}
 
-	mochatex.Cli(errLog, infoLog)
+	mochatex.Gui(errLog, infoLog)
 }

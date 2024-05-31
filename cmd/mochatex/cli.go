@@ -83,13 +83,16 @@ func Cli(errLog, infoLog *log.Logger) {
 		errLog.Fatalf("error while decoding json file %s: %v", *t, err)
 	}
 
-	j := job.NewJob(p, nil)
-	j.Template = tmpl
-	j.Details = dtls
-
-	pdfPath, err := j.Compile(context.Background())
+	pdfPath, err := StartJob(tmpl, dtls, p)
 	if err != nil {
 		errLog.Fatalf("error while compiling pdf: %v", err)
 	}
 	infoLog.Printf("Successfully created PDF at location: %s", filepath.Join(p, pdfPath))
+}
+
+func StartJob(tmpl *template.Template, dtls map[string]interface{}, path string) (string, error) {
+	j := job.NewJob(path, nil)
+	j.Template = tmpl
+	j.Details = dtls
+	return j.Compile(context.Background())
 }

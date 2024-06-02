@@ -3,6 +3,7 @@ package parsing
 import (
 	"encoding/json"
 	"log"
+	"maps"
 	"os"
 	"path/filepath"
 )
@@ -27,4 +28,22 @@ func ParseJsonFile(path *string, errLog, infoLog *log.Logger) map[string]interfa
 	}
 
 	return dtls
+}
+
+func FlattenJson(dtls map[string]interface{}) map[string]string {
+	return flattenJsonR("", dtls, make(map[string]string))
+}
+
+func flattenJsonR(p string, m map[string]interface{}, res map[string]string) map[string]string {
+	for key, value := range m {
+		fullP := p + "." + key
+		switch value.(type) {
+		case string:
+			res[fullP] = value.(string)
+		default:
+			inner := flattenJsonR(fullP, value.(map[string]interface{}), res)
+			maps.Copy(res, inner)
+		}
+	}
+	return res
 }

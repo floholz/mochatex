@@ -35,7 +35,7 @@ func (j *Job) Compile(ctx context.Context) (string, error) {
 	}
 
 	// Create the tex file
-	texFile, err := os.CreateTemp(j.Root, "*_filled-in.tex")
+	texFile, err := os.CreateTemp(j.Opts.AppPath, "*_filled-in.tex")
 	if err != nil {
 		return "", err
 	}

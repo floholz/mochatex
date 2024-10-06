@@ -32,6 +32,7 @@ func Cli(errLog, infoLog *log.Logger) {
 		p = ""
 	}
 
+	// todo: handle p as output filepath, instead of dir
 	if p != "" {
 		p, _ = filepath.Abs(p)
 		statInfo, err := os.Stat(p)

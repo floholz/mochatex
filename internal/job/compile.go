@@ -18,7 +18,7 @@ func (j *Job) Compile(ctx context.Context) (string, error) {
 	if err != nil {
 		return "", err
 	}
-	os.Chdir(j.Root)
+	os.Chdir(filepath.Dir(j.Root))
 	defer os.Chdir(currDir)
 
 	// Grab a valid compiler from the options
@@ -28,8 +28,9 @@ func (j *Job) Compile(ctx context.Context) (string, error) {
 	}
 
 	// Create the jobname from the options
-	jn := j.Template.Name()
+	jn := filepath.Base(j.Root) // j.Template.Name()
 	jn = strings.TrimSuffix(jn, filepath.Ext(jn))
+
 	if opts.N < 1 {
 		opts.N = 1
 	}

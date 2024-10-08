@@ -1,2 +1,4 @@
 /.idea
 /testing/result/
+/bin
+!/bin/*.sh

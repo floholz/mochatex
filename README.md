@@ -2,6 +2,7 @@
 [![GitHub tag (with filter)](https://img.shields.io/github/v/release/floholz/mochatex?label=latest)](https://github.com/floholz/mochatex/releases/latest)
 [![GitHub Workflow Status (with event)](https://img.shields.io/github/actions/workflow/status/floholz/mochatex/go.yml)](https://github.com/floholz/mochatex/actions/workflows/go.yml)
 [![GitHub License](https://img.shields.io/github/license/floholz/mochatex)](./LICENSE)
+[![Go Report Card](https://goreportcard.com/badge/github.com/floholz/mochatex)](https://goreportcard.com/report/github.com/floholz/mochatex)
 [![GitHub go.mod Go version (subdirectory of monorepo)](https://img.shields.io/github/go-mod/go-version/floholz/mochatex?logo=go&labelColor=gray&label=%20)](https://go.dev/dl/)
 
 > This project is based on [LaTTe](https://github.com/raphaelreyna/latte) by [raphaelreyna](https://github.com/raphaelreyna). 

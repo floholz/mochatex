@@ -67,7 +67,7 @@ Feel free to check [issues page](https://github.com/floholz/mochatex/issues).
 <a name="toc-license"></a>
 ### 📝 License
 
-Copyright © 2024 [floholz](https://github.com/floholz).
+By [floholz](https://github.com/floholz), 2024.
 
 This project is [MIT](./LICENSE) licensed.
 
